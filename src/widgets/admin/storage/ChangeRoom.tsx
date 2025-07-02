@@ -144,7 +144,7 @@ export default function ChangeRoom({ roomData }: { roomData: Room }) {
           <div className='flex items-center gap-2'>
             <Checkbox
               checked={isOccupied}
-              onCheckedChange={checked => setIsOccupied(checked)}
+              onCheckedChange={checked => setIsOccupied(Boolean(checked))}
               className=' cursor-pointer'
               id='isOccupied'
             />{' '}

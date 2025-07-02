@@ -1,5 +1,8 @@
 import RentRoomPage from '@/widgets/rent/ui/RentRoom/RentRoomPage'
 
-export default function RentRoom({ params }: { params: { id: string } }) {
-  return <RentRoomPage id={params.id} />
+type Params = Promise<{ id: string }>
+
+export default async function RentRoom({ params }: { params: Params }) {
+  const { id } = await params
+  return <RentRoomPage id={id} />
 }
