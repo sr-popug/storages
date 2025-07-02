@@ -21,7 +21,7 @@ export default function Describe() {
               <section className='mb-8'>
                 {el.pars.map((par, i) => (
                   <p
-                    className='mt-4 max-w-[530px]  text-[16px] lg:text-lg font-extralight text-justify'
+                    className='mt-4 max-w-[530px]  text-[16px] lg:text-base/7 font-extralight text-justify'
                     key={i}
                   >
                     {par}

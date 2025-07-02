@@ -9,10 +9,10 @@ export default function Reviews() {
             Отзывы о складе
           </h2>
           <article className='hidden items-center gap-2.5 sm:flex'>
-            <div className='bg-red-800 text-lg font-bold px-3 py-0.5 rounded-lg'>
+            <div className='bg-red-800 text-base/7 font-bold px-3 py-0.5 rounded-lg'>
               5.0
             </div>
-            <p className='font-bold text-lg'>
+            <p className='font-bold text-base/7'>
               Рейтинг на{' '}
               <a
                 target='_blank'

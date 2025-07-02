@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Storage {
+  id      Int    @id @default(autoincrement())
+  Room    Room[]
+  address String
+}
+
+model Room {
+  id        Int     @id @default(autoincrement())
+  storage   Storage @relation(fields: [storageId], references: [id])
+  storageId Int
+  number    Int
+  size      Int[]
+
+  isOccupied    Boolean
+  startOccupied DateTime?
+  endOccupied   DateTime?
+  userName      String?
+  userPhone     String?
+  userCode      String?
+}

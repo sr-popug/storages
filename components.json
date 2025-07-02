@@ -4,7 +4,7 @@
   "rsc": true,
   "tsx": true,
   "tailwind": {
-    "config": "tailwind.config.js",
+    "config": "tailwind.config.ts",
     "css": "src/app/globals.css",
     "baseColor": "neutral",
     "cssVariables": true,
@@ -12,10 +12,10 @@
   },
   "aliases": {
     "components": "@/shared/ui",
-    "utils": "@/shared/lib",
+    "utils": "@/shared/lib/utils",
     "ui": "@/shared/ui",
-    "lib": "@shared/lib",
-    "hooks": "@/shared/lib/react"
+    "lib": "@/shared/lib",
+    "hooks": "@/shared/react"
   },
   "iconLibrary": "lucide"
 }

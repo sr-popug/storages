@@ -53,7 +53,7 @@ export default function ReviewsSlider() {
           {reviews.map((el, i) => (
             <SwiperSlide key={i} className=''>
               <h4 className='text-[20px] font-bold mb-1 lg:mb-3 '>{el.name}</h4>
-              <p className='text-[15px] lg:text-lg max-w-67 mb-5 leading-6 font-extralight text-neutral-300'>
+              <p className='text-[15px] lg:text-base/7 max-w-67 mb-5 leading-6 font-extralight text-neutral-300'>
                 {el.text}
               </p>
               <footer className='flex justify-between items-center'>

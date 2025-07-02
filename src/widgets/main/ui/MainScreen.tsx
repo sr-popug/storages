@@ -4,11 +4,7 @@ import Image from 'next/image'
 
 export default function MainScreen() {
   return (
-    <article className='mt-14 sm:mt-5 pt-15 relative'>
-      <section className='absolute -z-1 -top-[40%] -left-[150%] sm:-left-[75%]  -rotate-45'>
-        <div className='bg-white opacity-[2%] h-96 w-4xl'></div>
-        <div className='bg-white opacity-[2%] h-12 w-4xl mt-5'></div>
-      </section>
+    <article className='mt-29 sm:mt-20  relative'>
       <section className='relative w-full '>
         <article className='absolute -right-20 -top-10 -z-1'>
           <Image
@@ -20,12 +16,10 @@ export default function MainScreen() {
           />
         </article>
         <article className=' max-w-[540px]  pt-12'>
-          <p className=' w-fit uppercase text-[16px] lg:text-lg text-neutral-600 after:w-full after:h-[1px] after:block after:bg-neutral-600'>
-            надёжное и безопасное
-          </p>
+          <p className=' w-fit uppercase text-[16px] lg:text-lg text-neutral-600 after:w-full after:h-[1px] after:block after:bg-neutral-600'></p>
 
           <h1 className='  text-4xl  sm:text-[44px] lg:text-[52px] font-extrabold max-w  text-balance'>
-            Хранение личных вещей и мебели{' '}
+            Хранение личных вещей и мебели
           </h1>
           <ul className='my-8 mb-12'>
             {[

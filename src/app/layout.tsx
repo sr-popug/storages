@@ -2,6 +2,7 @@ import Footer from '@/widgets/Footer/Footer'
 import Header from '@/widgets/Header/Header'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import { Toaster } from 'sonner'
 import './globals.css'
 
 const SF = localFont({
@@ -44,14 +45,20 @@ export default function RootLayout({
       <body className={`dark ${SF.className} antialiased`}>
         <div className='w-screen overflow-y-hidden'>
           <Header />
+
           <main
-            className='mt-20 w-full max-w-[1080px] mx-auto min-h-[calc(100vh-265px)]
-px-4 py-5'
+            className='mt-20 w-full max-w-[1080px] mx-auto min-h-[calc(100vh-205px)]
+px-4 py-5 relative'
           >
+            <section className='absolute -z-1 -top-[4%] -left-[150%] sm:-left-[75%]  -rotate-45'>
+              <div className='bg-white opacity-[2%] h-96 w-4xl'></div>
+              <div className='bg-white opacity-[2%] h-12 w-4xl mt-5'></div>
+            </section>
             {children}
           </main>
           <Footer />
         </div>
+        <Toaster richColors theme='dark' />
       </body>
     </html>
   )

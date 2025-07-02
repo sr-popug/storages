@@ -1,4 +1,4 @@
-import dignities from '@/lib/dignities'
+import dignities from '@/shared/lib/dignities'
 import Image from 'next/image'
 
 export default function Dignities() {
@@ -20,7 +20,7 @@ export default function Dignities() {
             >
               <section className='flex justify-center mb-5'>{el.icon}</section>
               <p
-                className=' text-center text-balance text-[15px] lg:text-lg'
+                className=' text-center text-balance text-[15px] lg:text-base/7'
                 dangerouslySetInnerHTML={{ __html: el.title }}
               ></p>
             </li>
