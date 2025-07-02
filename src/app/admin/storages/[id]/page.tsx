@@ -1,6 +1,13 @@
 import StoragePage from '@/widgets/admin/storage/StoragePage'
-type Params = Promise<{ id: string }>
-export default async function Page({ params }: { params: Params }) {
+interface PageProps {
+  params: {
+    id: string
+  }
+  searchParams?: {
+    [key: string]: string | string[] | undefined
+  }
+}
+export default async function Page({ params }: PageProps) {
   const { id } = await params
   return <StoragePage id={id} />
 }
