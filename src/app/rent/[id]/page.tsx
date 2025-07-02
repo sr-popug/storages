@@ -1,6 +1,5 @@
 import RentRoomPage from '@/widgets/rent/ui/RentRoom/RentRoomPage'
 
-type Params = Promise<{ id: string }>
 interface PageProps {
   params: {
     id: string
