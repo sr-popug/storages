@@ -5,7 +5,7 @@ import Image from 'next/image'
 export default function Describe() {
   return (
     <article className='mt-44 relative'>
-      <section className='absolute top-100 -right-108 -z-1 rotate-180'>
+      <section className='absolute top-100 -right-85 -z-1 rotate-180'>
         <Image src={'/big-arrow.svg'} height={1250} width={1550} alt='' />
       </section>
       <section>

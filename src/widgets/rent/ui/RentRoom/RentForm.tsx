@@ -27,7 +27,7 @@ export default function RentForm({ room }: { room: Room }) {
   }
 
   return (
-    <article className='mt-5 bg-neutral-900 rounded-xl px-5 py-2 pb-5'>
+    <form className='mt-5 bg-neutral-900 rounded-xl px-5 py-2 pb-5'>
       <h3 className='text-xl  font-bold gap-2 items-center mt-5 mb-1'>
         Заполните данные для оплаты
       </h3>
@@ -43,7 +43,8 @@ export default function RentForm({ room }: { room: Room }) {
               onChange={monthChange}
               id='months'
               min={1}
-              className='mt-1 text-base/7 w-16'
+              step='1'
+              className='mt-1 text-base/7 w-17 appearance-none'
               placeholder='0'
               type='number'
             />{' '}
@@ -70,7 +71,9 @@ export default function RentForm({ room }: { room: Room }) {
               value={name}
               onChange={nameChange}
               id='name'
+              pattern='[А-ЯЁ][а-яё]+\s[А-ЯЁ][а-яё]+(?:\s[А-ЯЁ][а-яё]+)?'
               className='mt-1 text-base/7 w-64'
+              title='Формат: Фамилия Имя Отчество (отчество необязательно)'
               placeholder='ФИО'
             />
           </div>
@@ -83,13 +86,15 @@ export default function RentForm({ room }: { room: Room }) {
                 onChange={smPhoneChange}
                 className=''
                 type='tel'
-                pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
+                title='Номер должен содержать 10 цифр (например, 9123456789)'
+                pattern='[0-9]{10}'
               />
             </div>
             <div className='sm:block hidden'>
               <InputOTP
                 className=''
                 value={phone}
+                minLength={10}
                 onChange={phoneChange}
                 maxLength={10}
               >
@@ -145,9 +150,9 @@ export default function RentForm({ room }: { room: Room }) {
         </p>
       </div>
       <div className='relative mt-3'>
-        <Link
-          className=' block text-center py-2 px-15 bg-red-800 transition-colors rounded-full hover:bg-red-950 font-bold'
-          href={'/'}
+        <button
+          type='submit'
+          className=' block text-center py-2 px-15 bg-red-800 transition-colors rounded-full w-full hover:bg-red-950 font-bold'
         >
           Оплатить{' '}
           {room.size.reduce((calc, a, i, array) => {
@@ -160,7 +165,7 @@ export default function RentForm({ room }: { room: Room }) {
             1200 *
             Number(month)}{' '}
           ₽
-        </Link>
+        </button>
         <div
           className={`${
             userAgreement && 'hidden'
@@ -188,6 +193,6 @@ export default function RentForm({ room }: { room: Room }) {
           сайта
         </Label>
       </div>
-    </article>
+    </form>
   )
 }
