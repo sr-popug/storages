@@ -61,6 +61,19 @@ export default function ContactData() {
                 </a>
               </li>
             </ul>
+            <section className='text-base mt-5 text-neutral-100'>
+              <h3 className='text-sm text-neutral-500 mb-1'>Данные ИП</h3>
+              <p className='flex gap-14'>
+                <span className='text-neutral-600'>ИП</span> Ахунов Ильяс
+                Фаизович
+              </p>
+              <p className='flex gap-11'>
+                <span className='text-neutral-600'>ИНН</span> 592008842814
+              </p>
+              <p className='flex gap-3'>
+                <span className='text-neutral-600'>ОГРНИП</span> 324510000013237
+              </p>
+            </section>
           </article>
         </article>
       </section>

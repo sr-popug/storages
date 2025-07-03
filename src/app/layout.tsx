@@ -1,5 +1,5 @@
-import Footer from '@/widgets/Footer/Footer'
-import Header from '@/widgets/Header/Header'
+import Footer from '@/shared/ui/Footer/Footer'
+import Header from '@/shared/ui/Header/Header'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { Toaster } from 'sonner'
@@ -26,7 +26,7 @@ const SF = localFont({
 })
 
 export const metadata: Metadata = {
-  title: '',
+  title: 'Складские помещения в Мурманске',
   description: 'Аренда помещений свободного назначения в городе Мурманске',
   viewport: {
     width: 'device-width',

@@ -1,5 +1,6 @@
 'use client'
 import numWord from '@/shared/scripts/numWord'
+import { Checkbox } from '@/shared/ui/checkbox'
 import { Input } from '@/shared/ui/input'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/shared/ui/input-otp'
 import { Label } from '@/shared/ui/label'
@@ -10,6 +11,7 @@ import { useState } from 'react'
 export default function RentForm({ room }: { room: Room }) {
   const [phone, setPhone] = useState('')
   const [name, setName] = useState('')
+  const [userAgreement, setUserAgreement] = useState(false)
   const [month, setMonth] = useState('1')
   function phoneChange(newValue: string) {
     setPhone(newValue)
@@ -126,7 +128,7 @@ export default function RentForm({ room }: { room: Room }) {
         </div>
       </div>
       <div className='mt-8'>
-        <b className=' text-xl mb-1 block'>Итого:</b>
+        <b className=' text-xl mb-1 block text-neutral-600'>Итого:</b>
         <p>
           - Оплата аренды помещения свободного назначения на {month} месяц
           {numWord(Number(month))} -{' '}
@@ -142,22 +144,50 @@ export default function RentForm({ room }: { room: Room }) {
           ₽
         </p>
       </div>
-      <Link
-        className='mt-5 block text-center py-2 px-15 bg-red-800 transition-colors rounded-full hover:bg-red-950 font-bold'
-        href={'/'}
-      >
-        Оплатить{' '}
-        {room.size.reduce((calc, a, i, array) => {
-          if (i % 2 == 1) {
-            calc += Number(((array[i] * array[i - 1]) / 10000).toFixed(1))
+      <div className='relative mt-3'>
+        <Link
+          className=' block text-center py-2 px-15 bg-red-800 transition-colors rounded-full hover:bg-red-950 font-bold'
+          href={'/'}
+        >
+          Оплатить{' '}
+          {room.size.reduce((calc, a, i, array) => {
+            if (i % 2 == 1) {
+              calc += Number(((array[i] * array[i - 1]) / 10000).toFixed(1))
+              return calc
+            }
             return calc
-          }
-          return calc
-        }, 0) *
-          1200 *
-          Number(month)}{' '}
-        ₽
-      </Link>
+          }, 0) *
+            1200 *
+            Number(month)}{' '}
+          ₽
+        </Link>
+        <div
+          className={`${
+            userAgreement && 'hidden'
+          } absolute top-0 left-0 right-0 bottom-0 bg-neutral-900 opacity-50`}
+          title='Примите пользовательское соглашение'
+        ></div>
+      </div>
+
+      <div className='flex gap-2 items-center mt-1 font-extralight'>
+        <Checkbox
+          checked={userAgreement}
+          onCheckedChange={() => setUserAgreement(prev => !prev)}
+          id='user-agreement'
+          className=' cursor-pointer'
+        />
+        <Label
+          className='text-base/7 cursor-pointer  font-extralight'
+          htmlFor='user-agreement'
+        >
+          {' '}
+          Я принимаю{' '}
+          <Link className='underline' target='_blank' href={'/user-agreement'}>
+            пользовательское соглашение
+          </Link>{' '}
+          сайта
+        </Label>
+      </div>
     </article>
   )
 }
