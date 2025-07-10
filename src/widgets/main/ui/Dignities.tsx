@@ -4,7 +4,7 @@ import Image from 'next/image'
 export default function Dignities() {
   return (
     <article className='mt-44 relative'>
-      <section className='absolute -top-16 -left-108 -z-1'>
+      <section className='absolute -top-16 -left-[26vw] -z-1'>
         <Image src={'/big-arrow.svg'} height={1250} width={1550} alt='' />
       </section>
       <section className='mt-16'>

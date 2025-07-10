@@ -1,4 +1,5 @@
 'use client'
+import getStorages from '@/shared/api/Storage/getStorages'
 import {
   Select,
   SelectContent,
@@ -6,12 +7,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/ui/select'
-import { ArrowDown, ArrowUp } from 'lucide-react'
-import { useState } from 'react'
+import { Storage } from '@prisma/client'
+import { ArrowDown, ArrowUp, LoaderCircle } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import RoomsList from './ui/RoomsList'
 export default function RentPage() {
   const [value, setValue] = useState<string>()
   const [sortBy, setSortBy] = useState<string>('')
+  const [storages, setStorages] = useState<Storage[]>()
+  useEffect(() => {
+    getStorages().then(res => setStorages(res))
+  }, [])
+
+  if (!storages) {
+    return (
+      <article className=' flex items-center flex-col justify-center h-80'>
+        <LoaderCircle className='animate-spin w-10 h-10 mb-2' />
+        <p>Загрузка...</p>
+      </article>
+    )
+  }
   return (
     <article>
       <h1 className='flex  text-2xl lg:text-3xl font-bold gap-2 items-center mt-5 mb-1'>
@@ -27,12 +42,11 @@ export default function RentPage() {
             <SelectValue placeholder='Выберите адрес помещения' />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem className='text-sm' value='1'>
-              Мурманск, ул. Капитана Копытова, д. 45
-            </SelectItem>
-            <SelectItem className='text-sm' value='2'>
-              Мурманск, ул. Виктора Миронова, д. 42
-            </SelectItem>
+            {storages.map(el => (
+              <SelectItem key={el.id} className='text-sm' value={el.id + ''}>
+                {el.address}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         {value && (

@@ -25,7 +25,7 @@ export default function Header() {
         <Menu />
         <Link
           href={pagesConfig.rent.href}
-          className='bg-red-800 py-2 px-6 rounded-full text-sm  sm:text-[16px] lg:text-base/7 transition-colors hover:bg-red-900 font-bold'
+          className='bg-red-800 py-1.5 px-6 rounded-full text-sm  sm:text-[16px] lg:text-base/7 transition-colors hover:bg-red-900 font-bold'
         >
           {' '}
           Арендовать склад

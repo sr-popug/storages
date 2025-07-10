@@ -21,7 +21,7 @@ export default function ContactData() {
         </article>
         <article className='mb-10'>
           <h3 className='text-sm text-neutral-500 mb-1'>Профиль на Авито</h3>
-          <div className='flex w-[320px] justify-between'>
+          <div className='flex min-w-[320px] max-w-[360px] justify-between'>
             <a
               target='_blank'
               className='text-base/7  hover:underline'
@@ -45,7 +45,7 @@ export default function ContactData() {
               <li>
                 <a
                   target='_blank'
-                  className='text-base/7 mb-3 block underline'
+                  className='text-base/7 mb-2 block underline'
                   href='https://yandex.ru/maps/23/murmansk/house/ulitsa_kapitana_kopytova_45/Z0oYdg5iT0wCQFhifXR4cnVibQ==/?ll=33.093081%2C68.893957&source=serp_navig&z=19.44'
                 >
                   Мурманск, ул. Капитана Копытова, д. 45
@@ -57,7 +57,7 @@ export default function ContactData() {
                   className='text-base/7 mb-4 underline'
                   href='https://yandex.ru/maps/23/murmansk/house/ulitsa_kapitana_kopytova_45/Z0oYdg5iT0wCQFhifXR4cnVibQ==/?ll=33.093081%2C68.893957&source=serp_navig&z=19.44'
                 >
-                  Мурманск, ул. Виктора Миронова, д. 42
+                  Мурманск, ул. Виктора Миронова, д. 38
                 </a>
               </li>
             </ul>

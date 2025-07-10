@@ -17,7 +17,7 @@ export default function RentRoomPage({ id }: { id: string }) {
       getStorageById(room.storageId).then(res => setAddress(res[0].address))
     }
   }, [room])
-  if (!room) {
+  if (!address || !room) {
     return (
       <article className=' flex items-center flex-col justify-center h-80'>
         <LoaderCircle className='animate-spin w-10 h-10 mb-2' />
