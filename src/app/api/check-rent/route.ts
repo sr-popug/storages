@@ -1,24 +1,21 @@
-import { getUserSubscription } from "@/lib/db"; // Ваша функция для проверки подписки
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest } from "next";
+// import { checkExpiredRentals } from '@/lib/rentals'; // Ваша функция
 
 export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
+  req: NextApiRequest
+  // res: NextApiResponse
 ) {
-  const userId = req.headers["user-id"]; // или из кук/сессии
-  if (!userId) return res.status(401).json({ error: "Unauthorized" });
-
-  const subscription = await getUserSubscription(userId);
-  const today = new Date();
-  const endDate = new Date(subscription.endDate);
-
-  if (today >= endDate) {
-    // Обновляем статус подписки в БД
-    await deactivateSubscription(userId);
-    return new Response(JSON.stringify({ error: "Subscription expired" }), {
+  // Защита от случайных вызовов (только для Vercel Cron)
+  if (req.headers["authorization"] !== `Bearer ${process.env.CRON_SECRET}`) {
+    return new Response(JSON.stringify({ error: "Forbidden" }), {
       status: 403,
     });
   }
 
-  res.status(200).json({ success: true });
+  try {
+    // await checkExpiredRentals(); // Проверяем аренды
+    new Response(JSON.stringify({ success: true }), { status: 200 });
+  } catch {
+    new Response(JSON.stringify({ error: "Cron job failed" }), { status: 500 });
+  }
 }
