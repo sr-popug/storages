@@ -1,9 +1,12 @@
-import ContactData from '@/shared/ui/ContactData/ContactData'
-import Describe from './ui/Describe'
-import Dignities from './ui/Dignities'
-import MainScreen from './ui/MainScreen'
-import Photos from './ui/Photos'
-import Reviews from './ui/Reviews'
+const ContactData = dynamic(
+  () => import("@/shared/ui/ContactData/ContactData")
+);
+import dynamic from "next/dynamic";
+import MainScreen from "./ui/MainScreen";
+const Reviews = dynamic(() => import("./ui/Reviews"));
+const Describe = dynamic(() => import("./ui/Describe"));
+const Photos = dynamic(() => import("./ui/Photos"));
+const Dignities = dynamic(() => import("./ui/Dignities"));
 
 export default function MainPage() {
   return (
@@ -15,5 +18,5 @@ export default function MainPage() {
       <Reviews />
       <ContactData />
     </>
-  )
+  );
 }

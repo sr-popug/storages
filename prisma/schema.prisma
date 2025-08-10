@@ -25,5 +25,4 @@ model Room {
   endOccupied   DateTime?
   userName      String?
   userPhone     String?
-  userCode      String?
 }

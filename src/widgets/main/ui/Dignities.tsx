@@ -1,15 +1,15 @@
-import dignities from '@/shared/lib/dignities'
-import Image from 'next/image'
+import dignities from "@/shared/lib/dignities";
+import Image from "next/image";
 
 export default function Dignities() {
   return (
     <article className='mt-44 relative'>
       <section className='absolute -top-16 -left-[26vw] -z-1'>
-        <Image src={'/big-arrow.svg'} height={1250} width={1550} alt='' />
+        <Image src={"/big-arrow.svg"} height={1250} width={1550} alt='' />
       </section>
       <section className='mt-16'>
         <h2 className='mb-8 text-3xl  lg:text-4xl font-extrabold max-w-[630px] text-balance'>
-          {' '}
+          {" "}
           Почему клиенты выбирают именно наши клaдoвки?
         </h2>
         <ul className='flex flex-wrap gap-2 justify-center '>
@@ -28,5 +28,5 @@ export default function Dignities() {
         </ul>
       </section>
     </article>
-  )
+  );
 }

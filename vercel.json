@@ -1,0 +1,9 @@
+{
+  "crons": [
+    {
+      "path": "/api/check-rent",
+      "schedule": "0 0 * * *",
+      "timezone": "Europe/Moscow"
+    }
+  ]
+}

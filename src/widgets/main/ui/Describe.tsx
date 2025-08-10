@@ -1,12 +1,12 @@
-import describes from '@/shared/lib/describes'
-import RentButton from '@/shared/ui/RentButton'
-import Image from 'next/image'
+import describes from "@/shared/lib/describes";
+import RentButton from "@/shared/ui/RentButton";
+import Image from "next/image";
 
 export default function Describe() {
   return (
     <article className='mt-44 relative'>
-      <section className='absolute top-100 -right-[25vw] -z-1 rotate-180'>
-        <Image src={'/big-arrow.svg'} height={1250} width={1550} alt='' />
+      <section className='absolute top-100 -right-[23vw] -z-1 rotate-180'>
+        <Image src={"/big-arrow.svg"} height={1250} width={1550} alt='' />
       </section>
       <section>
         {describes.map((el, i) => (
@@ -28,7 +28,7 @@ export default function Describe() {
                   </p>
                 ))}
               </section>
-              {i == describes.length - 1 ? <RentButton /> : ''}
+              {i == describes.length - 1 ? <RentButton /> : ""}
             </section>
             <Image
               src={el.image}
@@ -41,5 +41,5 @@ export default function Describe() {
         ))}
       </section>
     </article>
-  )
+  );
 }

@@ -1,179 +1,284 @@
-'use client'
-import numWord from '@/shared/scripts/numWord'
-import { Checkbox } from '@/shared/ui/checkbox'
-import { Input } from '@/shared/ui/input'
-import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/shared/ui/input-otp'
-import { Label } from '@/shared/ui/label'
-import { Room } from '@prisma/client'
-import Link from 'next/link'
-import { useState } from 'react'
-
+"use client";
+import numWord from "@/shared/scripts/numWord";
+import { Checkbox } from "@/shared/ui/checkbox";
+import { Input } from "@/shared/ui/input";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/shared/ui/input-otp";
+import { Label } from "@/shared/ui/label";
+import { Room } from "@prisma/client";
+import Link from "next/link";
+import { useCallback, useState } from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+type Inputs = {
+  months: string;
+  name: string;
+  phone: string;
+};
 export default function RentForm({ room }: { room: Room }) {
-  const [phone, setPhone] = useState('')
-  const [name, setName] = useState('')
-  const [userAgreement, setUserAgreement] = useState(false)
-  const [month, setMonth] = useState('1')
-  function phoneChange(newValue: string) {
-    setPhone(newValue)
-  }
-  function smPhoneChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setPhone(e.target.value)
-  }
-  function nameChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setName(e.target.value)
-  }
-  function monthChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setMonth(e.target.value)
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+    watch,
+    setValue,
+  } = useForm<Inputs>({ mode: "onTouched" });
+  const [userAgreement, setUserAgreement] = useState(false);
 
+  const handlePhoneChange = useCallback(
+    (value: string) => {
+      // Оставляем только цифры и обрезаем до 10 символов
+      const digitsOnly = value.replace(/\D/g, "").slice(0, 10);
+      setValue("phone", digitsOnly, { shouldValidate: true });
+      return digitsOnly;
+    },
+    [setValue]
+  );
+  const submitForm: SubmitHandler<Inputs> = data => {
+    console.log(data);
+  };
+  const formatPhoneDisplay = (value: string = "") => {
+    const digits = value.replace(/\D/g, "");
+    if (digits.length <= 3) return digits;
+    if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(
+      6,
+      8
+    )}-${digits.slice(8, 10)}`;
+  };
   return (
-    <form className='mt-5 bg-neutral-900 rounded-xl px-5 py-2 pb-5'>
+    <form
+      onSubmit={handleSubmit(submitForm)}
+      onError={() => console.log(errors)}
+      className='mt-5 bg-neutral-900 rounded-xl px-5 py-2 pb-5'
+    >
       <h3 className='text-xl  font-bold gap-2 items-center mt-5 mb-1'>
         Заполните данные для оплаты
       </h3>
       <div className='flex gap-x-20 gap-y-5 flex-wrap'>
-        {' '}
+        {" "}
         <div className='mt-3'>
           <Label className='text-[16px]' htmlFor=''>
-            Кол-во месяцев
+            Оплатить сразу
           </Label>
           <div className='flex items-center gap-2'>
             <Input
-              value={month}
-              onChange={monthChange}
+              {...register("months", {
+                required: "Укажите количество месяцев",
+                min: {
+                  value: 1,
+                  message: "Минимум 1 месяц",
+                },
+                valueAsNumber: true,
+              })}
               id='months'
               min={1}
-              step='1'
-              className='mt-1 text-base/7 w-17 appearance-none'
-              placeholder='0'
+              step={1}
+              className={`mt-1 text-base/7 w-17 appearance-none ${
+                errors.months && "border border-red-700"
+              }`}
+              placeholder='1'
+              defaultValue={1}
               type='number'
-            />{' '}
-            месяц{numWord(Number(month))}{' '}
-            <span className='text-neutral-600'>
-              ={' '}
+              onInput={e => {
+                // Запрещаем ввод значений меньше 1
+                if (Number(e.currentTarget.value) < 1)
+                  e.currentTarget.value = "1";
+              }}
+            />
+            <div className='w-16'>месяц{numWord(Number(watch("months")))} </div>
+            <span className='text-neutral-600 w-22 text-nowrap'>
+              ={" "}
               {room.size.reduce((calc, a, i, array) => {
                 if (i % 2 == 1) {
-                  calc += Number(((array[i] * array[i - 1]) / 10000).toFixed(1))
-                  return calc
+                  calc += Number(
+                    ((array[i] * array[i - 1]) / 10000).toFixed(1)
+                  );
+                  return calc;
                 }
-                return calc
+                return calc;
               }, 0) *
                 1200 *
-                Number(month)}{' '}
+                Number(watch("months"))}{" "}
               ₽
             </span>
           </div>
+          <p className='text-sm text-red-700 mt-1'>{errors.months?.message}</p>
         </div>
         <div>
           <div className='mt-3'>
-            <p>Полное имя (ФИО)</p>
+            <p>Ваше имя</p>
             <Input
-              value={name}
-              onChange={nameChange}
+              type='text'
+              {...register("name", {
+                required: { value: true, message: "Введите имя" },
+              })}
               id='name'
-              pattern='[А-ЯЁ][а-яё]+\s[А-ЯЁ][а-яё]+(?:\s[А-ЯЁ][а-яё]+)?'
-              className='mt-1 text-base/7 w-64'
-              title='Формат: Фамилия Имя Отчество (отчество необязательно)'
+              className={`mt-1 text-base/7 w-64 ${
+                errors.name?.message && "border border-red-700"
+              }`}
+              title='Формат: Фамилия Имя'
               placeholder='ФИО'
             />
+            <p className='text-sm text-red-700 mt-1'>{errors.name?.message}</p>
           </div>
-          <div className=' mt-3'>
+          <div className='mt-3'>
             <p className='mb-1'>Номер телефона</p>
-            <div className='flex items-center gap-2  sm:hidden'>
-              +7{' '}
-              <Input
-                value={phone}
-                onChange={smPhoneChange}
-                className=''
-                type='tel'
-                title='Номер должен содержать 10 цифр (например, 9123456789)'
-                pattern='[0-9]{10}'
+
+            {/* Мобильная версия */}
+            <div className='flex items-center gap-2 sm:hidden'>
+              +7
+              <Controller
+                name='phone'
+                control={control}
+                rules={{
+                  required: "Введите номер телефона",
+                  minLength: {
+                    value: 10,
+                    message: "Номер должен содержать 10 цифр",
+                  },
+                  pattern: { value: /^\d{10}$/, message: "Только цифры" },
+                }}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    value={formatPhoneDisplay(field.value)}
+                    onChange={e =>
+                      field.onChange(handlePhoneChange(e.target.value))
+                    }
+                    className={`max-w-50  ${
+                      errors.phone && "border border-red-700"
+                    }`}
+                    type='tel'
+                    placeholder='(912) 345-67-89'
+                    maxLength={16} // С учетом скобок и дефисов
+                  />
+                )}
               />
             </div>
-            <div className='sm:block hidden'>
-              <InputOTP
-                className=''
-                value={phone}
-                minLength={10}
-                onChange={phoneChange}
-                maxLength={10}
-              >
-                <span className='flex gap-1 text-nowrap'>
-                  +7 <span className='sm:block hidden'>(</span>
-                </span>
-                <InputOTPGroup>
-                  <InputOTPSlot index={0} />
-                  <InputOTPSlot index={1} />
-                  <InputOTPSlot index={2} />
-                </InputOTPGroup>
-                <span className='sm:block hidden'>)</span>
-                <InputOTPGroup>
-                  <InputOTPSlot index={3} />
-                  <InputOTPSlot index={4} />
-                  <InputOTPSlot index={5} />
-                </InputOTPGroup>
-                <span className='sm:block hidden'>-</span>
-                <InputOTPGroup>
-                  <InputOTPSlot index={6} />
-                  <InputOTPSlot index={7} />
-                </InputOTPGroup>
-                <span className='sm:block hidden'>-</span>
-                <InputOTPGroup>
-                  <InputOTPSlot index={8} />
-                  <InputOTPSlot index={9} />
-                </InputOTPGroup>
-              </InputOTP>
+
+            {/* Десктопная версия */}
+            <div className='hidden sm:block'>
+              <Controller
+                name='phone'
+                control={control}
+                rules={{
+                  required: "Введите номер телефона",
+                  minLength: {
+                    value: 10,
+                    message: "Номер должен содержать 10 цифр",
+                  },
+                  pattern: { value: /^\d{10}$/, message: "Только цифры" },
+                }}
+                render={({ field }) => (
+                  <div className='flex items-center gap-1'>
+                    <span>+7</span>
+                    <InputOTP
+                      maxLength={10}
+                      value={field.value || ""}
+                      onChange={value =>
+                        field.onChange(handlePhoneChange(value))
+                      }
+                    >
+                      <InputOTPGroup>
+                        <InputOTPSlot
+                          className={errors.phone && "border border-red-800"}
+                          index={0}
+                        />
+                        <InputOTPSlot
+                          className={errors.phone && "border border-red-800"}
+                          index={1}
+                        />
+                        <InputOTPSlot
+                          className={errors.phone && "border border-red-800"}
+                          index={2}
+                        />
+                      </InputOTPGroup>
+                      <span>(</span>
+                      <InputOTPGroup>
+                        <InputOTPSlot
+                          className={errors.phone && "border border-red-800"}
+                          index={3}
+                        />
+                        <InputOTPSlot
+                          className={errors.phone && "border border-red-800"}
+                          index={4}
+                        />
+                        <InputOTPSlot
+                          className={errors.phone && "border border-red-800"}
+                          index={5}
+                        />
+                      </InputOTPGroup>
+                      <span>)</span>
+                      <InputOTPGroup>
+                        <InputOTPSlot
+                          className={errors.phone && "border border-red-800"}
+                          index={6}
+                        />
+                        <InputOTPSlot
+                          className={errors.phone && "border border-red-800"}
+                          index={7}
+                        />
+                      </InputOTPGroup>
+                      <span>-</span>
+                      <InputOTPGroup>
+                        <InputOTPSlot
+                          className={errors.phone && "border border-red-800"}
+                          index={8}
+                        />
+                        <InputOTPSlot
+                          className={errors.phone && "border border-red-800"}
+                          index={9}
+                        />
+                      </InputOTPGroup>
+                    </InputOTP>
+                  </div>
+                )}
+              />
             </div>
+
+            <p className='text-sm text-red-700 mt-1'>{errors.phone?.message}</p>
           </div>
           <p className='text-sm mt-1 text-neutral-600 max-w-110'>
-            После оплаты на указанный номер телефона в Telegram придёт
-            <span className='font-semibold'> уникальный код доступа</span> для
-            открытия замка.
+            После оплаты мы сообщим вам
+            <span className='font-semibold'> телефон</span> на который нужно
+            позвонить, для открытия замка.
           </p>
         </div>
       </div>
-      <div className='mt-8'>
-        <b className=' text-xl mb-1 block text-neutral-600'>Итого:</b>
-        <p>
-          - Оплата аренды помещения свободного назначения на {month} месяц
-          {numWord(Number(month))} -{' '}
-          {room.size.reduce((calc, a, i, array) => {
-            if (i % 2 == 1) {
-              calc += Number(((array[i] * array[i - 1]) / 10000).toFixed(1))
-              return calc
-            }
-            return calc
-          }, 0) *
-            1200 *
-            Number(month)}{' '}
-          ₽
+      <div className='mt-12'>
+        <hr className='mb-6' />
+
+        <p className='flex gap-2 justify-between text-xl font-bold'>
+          К оплате сейчас{" "}
+          <span className='text-nowrap'>
+            {room.size.reduce((calc, a, i, array) => {
+              if (i % 2 == 1) {
+                calc += Number(((array[i] * array[i - 1]) / 10000).toFixed(1));
+                return calc;
+              }
+              return calc;
+            }, 0) *
+              1200 *
+              Number(watch("months"))}{" "}
+            ₽
+          </span>
+        </p>
+
+        <p className='text-sm mt-1 mb-4 text-neutral-500 flex justify-between gap-1'>
+          Следующая оплата (через {watch("months")} месяц
+          {numWord(Number(watch("months")))} ){" "}
+          <span className='text-nowrap'>
+            {room.size.reduce((calc, a, i, array) => {
+              if (i % 2 == 1) {
+                calc += Number(((array[i] * array[i - 1]) / 10000).toFixed(1));
+                return calc;
+              }
+              return calc;
+            }, 0) * 1200}
+            ₽ / мес
+          </span>
         </p>
       </div>
-      <div className='relative mt-3'>
-        <button
-          type='submit'
-          className=' block text-center py-2 px-15 bg-red-800 transition-colors rounded-full w-full hover:bg-red-950 font-bold'
-        >
-          Оплатить{' '}
-          {room.size.reduce((calc, a, i, array) => {
-            if (i % 2 == 1) {
-              calc += Number(((array[i] * array[i - 1]) / 10000).toFixed(1))
-              return calc
-            }
-            return calc
-          }, 0) *
-            1200 *
-            Number(month)}{' '}
-          ₽
-        </button>
-        <div
-          className={`${
-            userAgreement && 'hidden'
-          } absolute top-0 left-0 right-0 bottom-0 bg-neutral-900 opacity-50`}
-          title='Примите пользовательское соглашение'
-        ></div>
-      </div>
-
       <div className='flex gap-2 items-center mt-1 font-extralight'>
         <Checkbox
           checked={userAgreement}
@@ -185,14 +290,39 @@ export default function RentForm({ room }: { room: Room }) {
           className='text-base/7 cursor-pointer  font-extralight'
           htmlFor='user-agreement'
         >
-          {' '}
-          Я принимаю{' '}
-          <Link className='underline' target='_blank' href={'/user-agreement'}>
+          <span className='sm:block hidden'>Я принимаю </span>
+
+          <Link className='underline ' target='_blank' href={"/user-agreement"}>
+            <span className='sm:hidden block'>Я принимаю </span>
             пользовательское соглашение
-          </Link>{' '}
-          сайта
+          </Link>
         </Label>
       </div>
+      <div className='relative mt-3'>
+        <button
+          type='submit'
+          className=' block text-center py-2 px-15 bg-red-800 transition-colors rounded-full w-full hover:bg-red-900 font-bold'
+        >
+          Арендовать кладовку
+          {/* Оплатить{" "}
+          {room.size.reduce((calc, a, i, array) => {
+            if (i % 2 == 1) {
+              calc += Number(((array[i] * array[i - 1]) / 10000).toFixed(1));
+              return calc;
+            }
+            return calc;
+          }, 0) *
+            1200 *
+            Number(watch("months"))}{" "}
+          ₽ */}
+        </button>
+        <div
+          className={`${
+            userAgreement && "hidden"
+          } absolute top-0 left-0 right-0 bottom-0 bg-neutral-900 opacity-50`}
+          title='Примите пользовательское соглашение'
+        ></div>
+      </div>
     </form>
-  )
+  );
 }

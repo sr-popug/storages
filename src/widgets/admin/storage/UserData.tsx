@@ -1,4 +1,4 @@
-import { Button } from '@/shared/ui/button'
+import { Button } from "@/shared/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -7,9 +7,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/shared/ui/dialog'
-import { Room } from '@prisma/client'
-import { User } from 'lucide-react'
+} from "@/shared/ui/dialog";
+import { Room } from "@prisma/client";
+import { User } from "lucide-react";
 export default function UserData({ roomData }: { roomData: Room }) {
   return (
     <Dialog>
@@ -25,22 +25,19 @@ export default function UserData({ roomData }: { roomData: Room }) {
           </DialogHeader>
           <div>
             <strong className='flex gap-2 text-base/7 font-medium mt-2 text-neutral-600'>
-              Арендатор:{' '}
+              Арендатор:{" "}
               <div className=' text text-neutral-100'>{roomData.userName}</div>
             </strong>
             <strong className='flex gap-6 text-base/7 font-medium mt-2 text-neutral-600'>
-              Телефон:{' '}
+              Телефон:{" "}
               <a
-                href={'tel:8' + roomData.userPhone}
+                href={"tel:8" + roomData.userPhone}
                 className=' text text-neutral-100 underline'
               >
                 +7{roomData.userPhone}
               </a>
             </strong>
-            <strong className='flex gap-16 text-base/7 font-medium mt-2 text-neutral-600'>
-              Код:{' '}
-              <div className=' text text-neutral-100'>{roomData.userCode}</div>
-            </strong>
+
             <strong className='flex gap-2.5 text-base/7 font-medium mt-2 text-neutral-600'>
               Аренда до:
               <div className=' text text-neutral-100'>
@@ -56,5 +53,5 @@ export default function UserData({ roomData }: { roomData: Room }) {
         </DialogContent>
       </form>
     </Dialog>
-  )
+  );
 }

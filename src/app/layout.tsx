@@ -1,49 +1,25 @@
-import Footer from '@/shared/ui/Footer/Footer'
-import Header from '@/shared/ui/Header/Header'
-import type { Metadata } from 'next'
-import localFont from 'next/font/local'
-import { Toaster } from 'sonner'
-import './globals.css'
+import Footer from "@/shared/ui/Footer/Footer";
+import Header from "@/shared/ui/Header/Header";
+import { Manrope } from "@next/font/google";
+import { Toaster } from "sonner";
+import "./globals.css";
 
-const SF = localFont({
-  src: [
-    {
-      path: './fonts/SFProText-Light.ttf',
-      weight: '100',
-      style: 'normal',
-    },
-    {
-      path: './fonts/SFProText-Regular.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: './fonts/SFProText-Bold.ttf',
-      weight: '800',
-      style: 'normal',
-    },
-  ],
-})
-
-export const metadata: Metadata = {
-  title: 'Складские помещения в Мурманске',
-  description: 'Аренда помещений свободного назначения в городе Мурманске',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
-}
+const manrope = Manrope({
+  weight: ["200", "400", "500", "700", "800"], // Example weights
+  subsets: ["latin"],
+  display: "swap", // Ensures text remains visible during font loading
+  variable: "--font-manrope", // Creates a CSS variable for easy application
+});
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang='ru'>
-      <body className={`dark ${SF.className} antialiased`}>
-        <div className='w-screen overflow-y-hidden'>
+      <body className={`dark  ${manrope.className} antialiased`}>
+        <div className='w-screen overflow-hidden'>
           <Header />
 
           <main
@@ -61,5 +37,5 @@ px-4 py-5 relative'
         <Toaster richColors theme='dark' />
       </body>
     </html>
-  )
+  );
 }

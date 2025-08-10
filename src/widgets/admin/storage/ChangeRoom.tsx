@@ -1,7 +1,7 @@
-import updateRoom from '@/shared/api/Room/updateRoom'
-import { Button } from '@/shared/ui/button'
-import { Calendar } from '@/shared/ui/calendar'
-import { Checkbox } from '@/shared/ui/checkbox'
+import updateRoom from "@/shared/api/Room/updateRoom";
+import { Button } from "@/shared/ui/button";
+import { Calendar } from "@/shared/ui/calendar";
+import { Checkbox } from "@/shared/ui/checkbox";
 import {
   Dialog,
   DialogClose,
@@ -11,43 +11,42 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/shared/ui/dialog'
-import { Input } from '@/shared/ui/input'
-import { Label } from '@/shared/ui/label'
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/popover'
-import { Room } from '@prisma/client'
-import { ChevronDownIcon, X } from 'lucide-react'
-import { ChangeEvent, FormEvent, useState } from 'react'
+} from "@/shared/ui/dialog";
+import { Input } from "@/shared/ui/input";
+import { Label } from "@/shared/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
+import { Room } from "@prisma/client";
+import { ChevronDownIcon, X } from "lucide-react";
+import { ChangeEvent, FormEvent, useState } from "react";
 export default function ChangeRoom({ roomData }: { roomData: Room }) {
-  const [sizes, setSizes] = useState<number[]>(roomData.size)
-  const [name, setName] = useState(roomData.userName)
-  const [code, setCode] = useState(roomData.userCode)
-  const [phone, setPhone] = useState(roomData.userPhone)
-  const [number, setNumber] = useState(roomData.number)
-  const [isOccupied, setIsOccupied] = useState(roomData.isOccupied)
-  const [open, setOpen] = useState(false)
+  const [sizes, setSizes] = useState<number[]>(roomData.size);
+  const [name, setName] = useState(roomData.userName);
+  const [phone, setPhone] = useState(roomData.userPhone);
+  const [number, setNumber] = useState(roomData.number);
+  const [isOccupied, setIsOccupied] = useState(roomData.isOccupied);
+  const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined | null>(
     roomData.endOccupied
-  )
-  const [loading, setLoading] = useState(false)
+  );
+  const [loading, setLoading] = useState(false);
 
   function changeSize(e: ChangeEvent<HTMLInputElement>, index: number) {
     // Создаем новый массив вместо мутации старого
-    const newSizes = [...sizes]
-    newSizes[index] = Number(e.target.value) || 0
-    setSizes(newSizes)
+    const newSizes = [...sizes];
+    newSizes[index] = Number(e.target.value) || 0;
+    setSizes(newSizes);
   }
 
   function handleSubmit(e: FormEvent) {
-    setLoading(true)
-    e.preventDefault()
+    setLoading(true);
+    e.preventDefault();
     if (!isOccupied) {
       return updateRoom({
         id: roomData.id,
         number,
         size: sizes,
         isOccupied: false,
-      }).then(() => location.reload())
+      }).then(() => location.reload());
     }
     updateRoom({
       id: roomData.id,
@@ -56,9 +55,8 @@ export default function ChangeRoom({ roomData }: { roomData: Room }) {
       isOccupied: true,
       userName: name,
       userPhone: phone,
-      userCode: code,
       endOccupied: date,
-    }).then(() => location.reload())
+    }).then(() => location.reload());
   }
 
   return (
@@ -94,8 +92,8 @@ export default function ChangeRoom({ roomData }: { roomData: Room }) {
               <div className='col-span-3 space-y-2'>
                 {Array.from({ length: sizes.length / 2 }).map(
                   (_, pairIndex) => {
-                    const firstIndex = pairIndex * 2
-                    const secondIndex = pairIndex * 2 + 1
+                    const firstIndex = pairIndex * 2;
+                    const secondIndex = pairIndex * 2 + 1;
                     return (
                       <div key={pairIndex} className='flex items-center gap-2'>
                         <Input
@@ -127,7 +125,7 @@ export default function ChangeRoom({ roomData }: { roomData: Room }) {
                             </Button>
                           )}
                       </div>
-                    )
+                    );
                   }
                 )}
                 <Button
@@ -147,7 +145,7 @@ export default function ChangeRoom({ roomData }: { roomData: Room }) {
               onCheckedChange={checked => setIsOccupied(Boolean(checked))}
               className=' cursor-pointer'
               id='isOccupied'
-            />{' '}
+            />{" "}
             <Label className=' cursor-pointer' htmlFor='isOccupied'>
               Помещение занято
             </Label>
@@ -162,7 +160,7 @@ export default function ChangeRoom({ roomData }: { roomData: Room }) {
                 id='name'
                 name='name'
                 placeholder='ФИО'
-                value={name || ''}
+                value={name || ""}
                 onChange={e => setName(e.target.value)}
               />
             </div>
@@ -171,30 +169,19 @@ export default function ChangeRoom({ roomData }: { roomData: Room }) {
                 Телефон
               </Label>
               <div className='flex items-center gap-2 w-full'>
-                +7{' '}
+                +7{" "}
                 <Input
                   id='phone'
                   name='phone'
                   placeholder='(___)___-__-__'
                   type='tel'
                   pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
-                  value={phone || ''}
+                  value={phone || ""}
                   onChange={e => setPhone(e.target.value)}
                 />
               </div>
             </div>
-            <div className='flex items-center gap-4 mb-3'>
-              <Label htmlFor='code' className='w-20'>
-                Код
-              </Label>
-              <Input
-                id='code'
-                name='code'
-                className=''
-                value={code || ''}
-                onChange={e => setCode(e.target.value)}
-              />
-            </div>
+
             <div className='flex items-center gap-4 mb-3'>
               <Label className='w-16'>Аренда до</Label>
               <Popover open={open} onOpenChange={setOpen}>
@@ -206,7 +193,7 @@ export default function ChangeRoom({ roomData }: { roomData: Room }) {
                   >
                     {date
                       ? new Date(date).toLocaleDateString()
-                      : 'Выберите дату'}
+                      : "Выберите дату"}
                     <ChevronDownIcon />
                   </Button>
                 </PopoverTrigger>
@@ -219,8 +206,8 @@ export default function ChangeRoom({ roomData }: { roomData: Room }) {
                     selected={date!}
                     captionLayout='dropdown'
                     onSelect={date => {
-                      setDate(date)
-                      setOpen(false)
+                      setDate(date);
+                      setOpen(false);
                     }}
                   />
                 </PopoverContent>
@@ -238,12 +225,12 @@ export default function ChangeRoom({ roomData }: { roomData: Room }) {
               </Button>
             </DialogClose>
             <Button disabled={loading} onClick={handleSubmit} type='submit'>
-              {!loading && 'Сохранить изменения'}
-              {loading && 'Загрузка'}
+              {!loading && "Сохранить изменения"}
+              {loading && "Загрузка"}
             </Button>
           </DialogFooter>
         </DialogContent>
       </form>
     </Dialog>
-  )
+  );
 }
