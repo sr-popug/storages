@@ -15,15 +15,26 @@ export default function RoomCard({ room }: { room: Room }) {
     >
       <div className='text flex flex-col justify-between grow'>
         <div className=''>
-          <p className='text-sm text-center sm:text-left text-neutral-600 mb-3'>
-            Комната № {room.number} -{" "}
-            <span className='text-green-700'>Свободна</span>
+          <p className='text-sm text-center sm:text-left text-neutral-600 mb-3 flex justify-between items-center'>
+            <span>Комната № {room.number}</span>
+            <span className='block p-0.5 px-2 font-bold text-base/7 text-red-700 bg-neutral-950 rounded-lg'>
+              {room.size.reduce((calc, a, i, array) => {
+                if (i % 2 == 1) {
+                  calc += Number(
+                    ((array[i] * array[i - 1]) / 10000).toFixed(1)
+                  );
+                  return calc;
+                }
+                return calc;
+              }, 0)}
+              м²
+            </span>
           </p>
           <div className='flex justify-center items-center flex-col h-62 w-full sm:w-56'>
             <Room size={room.size} />
           </div>
 
-          <strong className='flex gap-2 text-lg font-medium mt-2 text-neutral-600'>
+          <strong className='flex gap-2 text-lg font-medium mt-0.5 text-neutral-600'>
             Размеры:{" "}
             <div className='text text-neutral-100'>
               {room.size.map((room2, i) => {
@@ -39,23 +50,9 @@ export default function RoomCard({ room }: { room: Room }) {
               })}
             </div>
           </strong>
-          <strong className='flex gap-2 text-lg font-medium mt-2 text-neutral-600'>
-            Площадь:{" "}
-            <div className=' text text-neutral-100'>
-              {room.size.reduce((calc, a, i, array) => {
-                if (i % 2 == 1) {
-                  calc += Number(
-                    ((array[i] * array[i - 1]) / 10000).toFixed(1)
-                  );
-                  return calc;
-                }
-                return calc;
-              }, 0)}
-              м²
-            </div>
-          </strong>
-          <strong className='flex gap-2 text-lg font-medium mt-2 text-neutral-600'>
-            Аренда:{" "}
+
+          <strong className='flex gap-1.5 text-lg font-medium mt-2 text-neutral-600'>
+            Аренда:
             <div className=' ml-4 text text-neutral-100'>
               {room.size.reduce((calc, a, i, array) => {
                 if (i % 2 == 1) {

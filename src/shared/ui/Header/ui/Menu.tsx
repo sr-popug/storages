@@ -15,16 +15,16 @@ export default function Menu() {
           active ? "block" : "hidden"
         }  absolute  left-0 top-0 w-screen h-screen bg-neutral-900 transition-all py-5 px-4`}
       >
-        <section className='absolute  -top-[40%] -left-[75%] -rotate-45'>
+        <section className='absolute  -top-[40%] -left-[75%] -rotate-45 z-10'>
           <div className='bg-white opacity-[2%] h-96 w-4xl'></div>
           <div className='bg-white opacity-[2%] h-12 w-4xl mt-5'></div>
         </section>
-        <section className='content  flex flex-col justify-between w-full h-full'>
+        <section className='relative content  flex flex-col justify-between w-full h-full z-20'>
           <article className='flex justify-between gap-5 items-center mx-auto max-w-[1080px] w-full'>
             <MenuButton active={active} setActive={setActive} />
             <Link
               href={pagesConfig.rent.href}
-              className='bg-red-800 py-2 px-6 rounded-full text-sm  sm:text-[16px] lg:text-lg transition-colors hover:bg-red-900 font-bold'
+              className='bg-red-800 py-1.5 px-6 rounded-full text-sm  sm:text-[16px] lg:text-lg transition-colors hover:bg-red-900 font-bold'
             >
               {" "}
               Арендовать склад
@@ -47,7 +47,7 @@ export default function Menu() {
               ))}
           </ul>
           <footer>
-            <article className='mb-5 mt-20'>
+            <article className='mb-20 mt-20'>
               <h3 className='text-sm text-center text-neutral-500 mb-1'>
                 Телефоны для связи
               </h3>
