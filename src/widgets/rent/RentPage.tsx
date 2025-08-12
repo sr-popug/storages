@@ -1,23 +1,23 @@
-'use client'
-import getStorages from '@/shared/api/Storage/getStorages'
+"use client";
+import getStorages from "@/shared/api/Storage/getStorages";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/shared/ui/select'
-import { Storage } from '@prisma/client'
-import { ArrowDown, ArrowUp, LoaderCircle } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import RoomsList from './ui/RoomsList'
+} from "@/shared/ui/select";
+import { Storage } from "@prisma/client";
+import { ArrowDown, ArrowUp, LoaderCircle } from "lucide-react";
+import { useEffect, useState } from "react";
+import RoomsList from "./ui/RoomsList";
 export default function RentPage() {
-  const [value, setValue] = useState<string>()
-  const [sortBy, setSortBy] = useState<string>('')
-  const [storages, setStorages] = useState<Storage[]>()
+  const [value, setValue] = useState<string>();
+  const [sortBy, setSortBy] = useState<string>("");
+  const [storages, setStorages] = useState<Storage[]>();
   useEffect(() => {
-    getStorages().then(res => setStorages(res))
-  }, [])
+    getStorages().then(res => setStorages(res));
+  }, []);
 
   if (!storages) {
     return (
@@ -25,7 +25,7 @@ export default function RentPage() {
         <LoaderCircle className='animate-spin w-10 h-10 mb-2' />
         <p>Загрузка...</p>
       </article>
-    )
+    );
   }
   return (
     <article>
@@ -38,12 +38,12 @@ export default function RentPage() {
       </p>
       <article className='flex flex-col md:flex-row md:justify-between gap-2 '>
         <Select value={value} onValueChange={setValue}>
-          <SelectTrigger className='text-sm sm:text-base/7'>
+          <SelectTrigger className='text-sm sm:text-lg'>
             <SelectValue placeholder='Выберите адрес помещения' />
           </SelectTrigger>
           <SelectContent>
             {storages.map(el => (
-              <SelectItem key={el.id} className='text-sm' value={el.id + ''}>
+              <SelectItem key={el.id} className='text-sm' value={el.id + ""}>
                 {el.address}
               </SelectItem>
             ))}
@@ -51,7 +51,7 @@ export default function RentPage() {
         </Select>
         {value && (
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className='text-sm sm:text-base/7'>
+            <SelectTrigger className='text-sm sm:text-lg'>
               <SelectValue placeholder='Сортировать по' />
             </SelectTrigger>
             <SelectContent>
@@ -70,5 +70,5 @@ export default function RentPage() {
       </article>
       {value && <RoomsList sortBy={sortBy} id={Number(value)} />}
     </article>
-  )
+  );
 }

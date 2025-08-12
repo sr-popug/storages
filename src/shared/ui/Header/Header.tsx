@@ -1,6 +1,6 @@
-import pagesConfig from '@/shared/lib/pagesConfig'
-import Link from 'next/link'
-import Menu from './ui/Menu'
+import pagesConfig from "@/shared/lib/pagesConfig";
+import Link from "next/link";
+import Menu from "./ui/Menu";
 
 export default function Header() {
   return (
@@ -13,7 +13,7 @@ export default function Header() {
               .map(el => (
                 <li key={el.href}>
                   <Link
-                    className='text-base/7 hover:text-red-200 transition-colors after:bg-red-200 after:w-0 after:h-[1px] after:block after:transition-all hover:after:w-full'
+                    className='text-lg hover:text-red-200 transition-colors after:bg-red-200 after:w-0 after:h-[1px] after:block after:transition-all hover:after:w-full'
                     href={el.href}
                   >
                     {el.title}
@@ -25,12 +25,12 @@ export default function Header() {
         <Menu />
         <Link
           href={pagesConfig.rent.href}
-          className='bg-red-800 py-1.5 px-6 rounded-full text-sm  sm:text-[16px] lg:text-base/7 transition-colors hover:bg-red-900 font-bold'
+          className='bg-red-800 py-1.5 px-6 rounded-full text-sm  sm:text-[16px] lg:text-lg transition-colors hover:bg-red-900 font-bold'
         >
-          {' '}
+          {" "}
           Арендовать склад
         </Link>
       </section>
     </header>
-  )
+  );
 }

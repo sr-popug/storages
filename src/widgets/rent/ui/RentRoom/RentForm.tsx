@@ -1,18 +1,15 @@
 "use client";
+import sendMessage from "@/shared/api/sendMessage";
+import { PRICE_FOR_SQUARE_METER } from "@/shared/lib/constants";
 import numWord from "@/shared/scripts/numWord";
-import { Checkbox } from "@/shared/ui/checkbox";
+import { Inputs } from "@/shared/types/inputs";
 import { Input } from "@/shared/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/shared/ui/input-otp";
 import { Label } from "@/shared/ui/label";
 import { Room } from "@prisma/client";
-import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-type Inputs = {
-  months: string;
-  name: string;
-  phone: string;
-};
+
 export default function RentForm({ room }: { room: Room }) {
   const {
     register,
@@ -22,7 +19,6 @@ export default function RentForm({ room }: { room: Room }) {
     watch,
     setValue,
   } = useForm<Inputs>({ mode: "onTouched" });
-  const [userAgreement, setUserAgreement] = useState(false);
 
   const handlePhoneChange = useCallback(
     (value: string) => {
@@ -34,7 +30,7 @@ export default function RentForm({ room }: { room: Room }) {
     [setValue]
   );
   const submitForm: SubmitHandler<Inputs> = data => {
-    console.log(data);
+    sendMessage({ ...data, room });
   };
   const formatPhoneDisplay = (value: string = "") => {
     const digits = value.replace(/\D/g, "");
@@ -51,7 +47,7 @@ export default function RentForm({ room }: { room: Room }) {
       onError={() => console.log(errors)}
       className='mt-5 bg-neutral-900 rounded-xl px-5 py-2 pb-5'
     >
-      <h3 className='text-xl  font-bold gap-2 items-center mt-5 mb-1'>
+      <h3 className='text-2xl  font-bold gap-2 items-center mt-5 mb-1'>
         Заполните данные для оплаты
       </h3>
       <div className='flex gap-x-20 gap-y-5 flex-wrap'>
@@ -73,7 +69,7 @@ export default function RentForm({ room }: { room: Room }) {
               id='months'
               min={1}
               step={1}
-              className={`mt-1 text-base/7 w-17 appearance-none ${
+              className={`mt-1 text-lg w-17 appearance-none ${
                 errors.months && "border border-red-700"
               }`}
               placeholder='1'
@@ -97,7 +93,7 @@ export default function RentForm({ room }: { room: Room }) {
                 }
                 return calc;
               }, 0) *
-                1200 *
+                PRICE_FOR_SQUARE_METER *
                 Number(watch("months"))}{" "}
               ₽
             </span>
@@ -113,7 +109,7 @@ export default function RentForm({ room }: { room: Room }) {
                 required: { value: true, message: "Введите имя" },
               })}
               id='name'
-              className={`mt-1 text-base/7 w-64 ${
+              className={`mt-1 text-lg w-64 ${
                 errors.name?.message && "border border-red-700"
               }`}
               title='Формат: Фамилия Имя'
@@ -258,7 +254,7 @@ export default function RentForm({ room }: { room: Room }) {
               }
               return calc;
             }, 0) *
-              1200 *
+              PRICE_FOR_SQUARE_METER *
               Number(watch("months"))}{" "}
             ₽
           </span>
@@ -274,54 +270,19 @@ export default function RentForm({ room }: { room: Room }) {
                 return calc;
               }
               return calc;
-            }, 0) * 1200}
+            }, 0) * PRICE_FOR_SQUARE_METER}
             ₽ / мес
           </span>
         </p>
       </div>
-      <div className='flex gap-2 items-center mt-1 font-extralight'>
-        <Checkbox
-          checked={userAgreement}
-          onCheckedChange={() => setUserAgreement(prev => !prev)}
-          id='user-agreement'
-          className=' cursor-pointer'
-        />
-        <Label
-          className='text-base/7 cursor-pointer  font-extralight'
-          htmlFor='user-agreement'
-        >
-          <span className='sm:block hidden'>Я принимаю </span>
 
-          <Link className='underline ' target='_blank' href={"/user-agreement"}>
-            <span className='sm:hidden block'>Я принимаю </span>
-            пользовательское соглашение
-          </Link>
-        </Label>
-      </div>
       <div className='relative mt-3'>
         <button
           type='submit'
           className=' block text-center py-2 px-15 bg-red-800 transition-colors rounded-full w-full hover:bg-red-900 font-bold'
         >
           Арендовать кладовку
-          {/* Оплатить{" "}
-          {room.size.reduce((calc, a, i, array) => {
-            if (i % 2 == 1) {
-              calc += Number(((array[i] * array[i - 1]) / 10000).toFixed(1));
-              return calc;
-            }
-            return calc;
-          }, 0) *
-            1200 *
-            Number(watch("months"))}{" "}
-          ₽ */}
         </button>
-        <div
-          className={`${
-            userAgreement && "hidden"
-          } absolute top-0 left-0 right-0 bottom-0 bg-neutral-900 opacity-50`}
-          title='Примите пользовательское соглашение'
-        ></div>
       </div>
     </form>
   );

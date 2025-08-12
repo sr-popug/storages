@@ -1,21 +1,21 @@
-'use client'
-import { ArrowLeft, ArrowRight, Star } from 'lucide-react'
-import { useRef } from 'react'
-import type { Swiper as SwiperType } from 'swiper'
-import 'swiper/css'
-import { A11y, Pagination } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
+"use client";
+import { ArrowLeft, ArrowRight, Star } from "lucide-react";
+import { useRef } from "react";
+import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import { A11y, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import Image from 'next/image'
-import reviews from '../lib/reviews'
+import Image from "next/image";
+import reviews from "../lib/reviews";
 
 export default function ReviewsSlider() {
-  const swiperRef = useRef<SwiperType | null>(null)
+  const swiperRef = useRef<SwiperType | null>(null);
   console.log(
     new Array(reviews[0].stars).map((_, i) => (
       <Star key={i} className='bg-amber-500' />
     ))
-  )
+  );
   return (
     <article className='w-full'>
       <div className='flex items-center gap-2'>
@@ -53,14 +53,14 @@ export default function ReviewsSlider() {
           {reviews.map((el, i) => (
             <SwiperSlide key={i} className=''>
               <h4 className='text-[20px] font-bold mb-1 lg:mb-3 '>{el.name}</h4>
-              <p className='text-[15px] lg:text-base/7 max-w-67 mb-5 leading-6 font-extralight text-neutral-300'>
+              <p className='text-[15px] lg:text-lg max-w-67 mb-5 leading-6 font-extralight text-neutral-300'>
                 {el.text}
               </p>
               <footer className='flex justify-between items-center'>
                 <div className='stars flex gap-2'>
                   {new Array(el.stars).fill(1).map((_, i) => (
                     <Image
-                      src={'/star.svg'}
+                      src={"/star.svg"}
                       width={15}
                       height={15}
                       alt=''
@@ -88,5 +88,5 @@ export default function ReviewsSlider() {
         </button>
       </div>
     </article>
-  )
+  );
 }

@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import pagesConfig from '@/shared/lib/pagesConfig'
-import Link from 'next/link'
-import { useState } from 'react'
-import MenuButton from './MenuButton'
+import pagesConfig from "@/shared/lib/pagesConfig";
+import Link from "next/link";
+import { useState } from "react";
+import MenuButton from "./MenuButton";
 
 export default function Menu() {
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState(false);
   return (
     <article className='block lg:hidden'>
       <MenuButton active={active} setActive={setActive} />
       <section
         className={` ${
-          active ? 'block' : 'hidden'
+          active ? "block" : "hidden"
         }  absolute  left-0 top-0 w-screen h-screen bg-neutral-900 transition-all py-5 px-4`}
       >
         <section className='absolute  -top-[40%] -left-[75%] -rotate-45'>
@@ -24,9 +24,9 @@ export default function Menu() {
             <MenuButton active={active} setActive={setActive} />
             <Link
               href={pagesConfig.rent.href}
-              className='bg-red-800 py-2 px-6 rounded-full text-sm  sm:text-[16px] lg:text-base/7 transition-colors hover:bg-red-900 font-bold'
+              className='bg-red-800 py-2 px-6 rounded-full text-sm  sm:text-[16px] lg:text-lg transition-colors hover:bg-red-900 font-bold'
             >
-              {' '}
+              {" "}
               Арендовать склад
             </Link>
           </article>
@@ -63,5 +63,5 @@ export default function Menu() {
         </section>
       </section>
     </article>
-  )
+  );
 }

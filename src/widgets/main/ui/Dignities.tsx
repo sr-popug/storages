@@ -20,7 +20,7 @@ export default function Dignities() {
             >
               <section className='flex justify-center mb-5'>{el.icon}</section>
               <p
-                className=' text-center text-balance text-[15px] lg:text-base/7'
+                className=' text-center text-balance text-[15px] lg:text-lg'
                 dangerouslySetInnerHTML={{ __html: el.title }}
               ></p>
             </li>

@@ -1,4 +1,4 @@
-import ReviewsSlider from '@/shared/ui/ReviewsSlider'
+import ReviewsSlider from "@/shared/ui/ReviewsSlider";
 
 export default function Reviews() {
   return (
@@ -9,11 +9,11 @@ export default function Reviews() {
             Отзывы о складе
           </h2>
           <article className='hidden items-center gap-2.5 sm:flex'>
-            <div className='bg-red-800 text-base/7 font-bold px-3 py-0.5 rounded-lg'>
+            <div className='bg-red-800 text-lg font-bold px-3 py-0.5 rounded-lg'>
               5.0
             </div>
-            <p className='font-bold text-base/7'>
-              Рейтинг на{' '}
+            <p className='font-bold text-lg'>
+              Рейтинг на{" "}
               <a
                 target='_blank'
                 href='https://www.avito.ru/brands/98398c8e120a10c10fc6c41b8316b9a8/all?gdlkerfdnwq=101&page_from=from_item_card&iid=4301173826&sellerId=78257f1f2bd7547e811cdb30ccf1f9be&view=gallery'
@@ -27,5 +27,5 @@ export default function Reviews() {
         <ReviewsSlider />
       </section>
     </article>
-  )
+  );
 }

@@ -1,15 +1,15 @@
-'use client'
-import getStorages from '@/shared/api/Storage/getStorages'
-import { Storage } from '@prisma/client'
-import { ArrowRight, LoaderCircle } from 'lucide-react'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
+"use client";
+import getStorages from "@/shared/api/Storage/getStorages";
+import { Storage } from "@prisma/client";
+import { ArrowRight, LoaderCircle } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function AdminMain() {
-  const [storages, setStorages] = useState<Storage[]>()
+  const [storages, setStorages] = useState<Storage[]>();
   useEffect(() => {
-    getStorages().then(setStorages)
-  }, [])
+    getStorages().then(setStorages);
+  }, []);
 
   return (
     <article className=''>
@@ -33,7 +33,7 @@ export default function AdminMain() {
               >
                 <div className=''>
                   <p className='text-sm text-neutral-600'>Адрес</p>
-                  <h4 className='text-base/7 font-bold'>{el.address}</h4>
+                  <h4 className='text-lg font-bold'>{el.address}</h4>
                 </div>
                 <ArrowRight />
               </Link>
@@ -41,5 +41,5 @@ export default function AdminMain() {
           ))}
       </ul>
     </article>
-  )
+  );
 }

@@ -1,6 +1,7 @@
 "use client";
 import getRoomById from "@/shared/api/Room/getRoomById";
 import getStorageById from "@/shared/api/Storage/getStorageById";
+import { PRICE_FOR_SQUARE_METER } from "@/shared/lib/constants";
 import { Room } from "@prisma/client";
 import {
   HandCoins,
@@ -44,7 +45,7 @@ export default function RentRoomPage({ id }: { id: string }) {
           <h3 className='text-xl  font-bold gap-2 items-center mt-5 mb-1'>
             Информация о комнате
           </h3>
-          <strong className='flex items-center gap-2 text-base/7 font-medium mt-2 text-neutral-600'>
+          <strong className='flex items-center gap-2 text-lg font-normal mt-2 text-neutral-600'>
             <PencilRuler className='text-red-700' width={20} height={20} />{" "}
             Размеры:{" "}
             <div className='text text-neutral-100'>
@@ -60,7 +61,7 @@ export default function RentRoomPage({ id }: { id: string }) {
               })}
             </div>
           </strong>
-          <strong className='flex items-center gap-2 text-base/7 font-medium mt-2 text-neutral-600'>
+          <strong className='flex items-center gap-2 text-lg font-normal mt-2 text-neutral-600'>
             <SquaresExclude className='text-red-700' width={20} height={20} />
             Площадь:{" "}
             <div className=' text text-neutral-100'>
@@ -77,7 +78,7 @@ export default function RentRoomPage({ id }: { id: string }) {
             </div>
           </strong>
 
-          <strong className='flex items-center gap-2 text-base/7 font-medium mt-2 text-neutral-600'>
+          <strong className='flex items-center gap-2 text-lg font-normal mt-2 text-neutral-600'>
             <ThermometerSnowflake
               className='text-red-700'
               width={20}
@@ -86,17 +87,17 @@ export default function RentRoomPage({ id }: { id: string }) {
             Климат:
             <div className=' ml-4 text text-neutral-100'>Отапливается</div>
           </strong>
-          <strong className='flex items-center gap-2 text-base/7 font-medium mt-2 text-neutral-600'>
+          <strong className='flex items-center gap-2 text-lg font-normal mt-2 text-neutral-600'>
             <Zap className='text-red-700' width={20} height={20} />
             Электричество:
             <div className=' ml-4 text text-neutral-100'>Есть</div>
           </strong>
-          <strong className='flex items-center gap-2 text-base/7 font-medium mt-2 text-neutral-600'>
+          <strong className='flex items-center gap-2 text-lg font-normal mt-2 text-neutral-600'>
             <MapPinHouse className='text-red-700' width={20} height={20} />
             Адрес:
             <div className=' ml-4 text text-neutral-100'>{address}</div>
           </strong>
-          <strong className='flex items-center gap-2 text-base/7 font-medium mt-2 text-neutral-600'>
+          <strong className='flex items-center gap-2 text-lg font-normal mt-2 text-neutral-600'>
             <HandCoins className='text-red-700' width={20} height={20} />
             Аренда:{" "}
             <div className=' ml-4 text text-neutral-100'>
@@ -108,7 +109,7 @@ export default function RentRoomPage({ id }: { id: string }) {
                   return calc;
                 }
                 return calc;
-              }, 0) * 1200}{" "}
+              }, 0) * PRICE_FOR_SQUARE_METER}{" "}
               руб/мес
             </div>
           </strong>

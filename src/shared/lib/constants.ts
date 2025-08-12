@@ -1,0 +1,3 @@
+const PRICE_FOR_SQUARE_METER = 1200;
+
+export { PRICE_FOR_SQUARE_METER };

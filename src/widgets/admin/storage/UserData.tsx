@@ -24,11 +24,11 @@ export default function UserData({ roomData }: { roomData: Room }) {
             <DialogTitle>Данные арендатора</DialogTitle>
           </DialogHeader>
           <div>
-            <strong className='flex gap-2 text-base/7 font-medium mt-2 text-neutral-600'>
+            <strong className='flex gap-2 text-lg font-medium mt-2 text-neutral-600'>
               Арендатор:{" "}
               <div className=' text text-neutral-100'>{roomData.userName}</div>
             </strong>
-            <strong className='flex gap-6 text-base/7 font-medium mt-2 text-neutral-600'>
+            <strong className='flex gap-6 text-lg font-medium mt-2 text-neutral-600'>
               Телефон:{" "}
               <a
                 href={"tel:8" + roomData.userPhone}
@@ -38,7 +38,7 @@ export default function UserData({ roomData }: { roomData: Room }) {
               </a>
             </strong>
 
-            <strong className='flex gap-2.5 text-base/7 font-medium mt-2 text-neutral-600'>
+            <strong className='flex gap-2.5 text-lg font-medium mt-2 text-neutral-600'>
               Аренда до:
               <div className=' text text-neutral-100'>
                 {new Date(roomData.endOccupied!).toLocaleDateString()}
