@@ -12,7 +12,7 @@ export async function POST(NextRequest: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          chat_id: -4816260784,
+          chat_id: -1002604919535,
           text: data.message,
         }),
       }
