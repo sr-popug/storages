@@ -18,6 +18,9 @@ export default function RentPage() {
   useEffect(() => {
     getStorages().then(res => setStorages(res));
   }, []);
+  useEffect(() => {
+    if (storages) setValue(storages[0].id + "");
+  }, [storages]);
 
   if (!storages) {
     return (
@@ -33,11 +36,15 @@ export default function RentPage() {
         Арендовать помещение
       </h1>
       <p className='max-w-lg text-neutral-600 mb-5'>
-        В городе Мурманске у нас есть несколько адресов помещений, где вы можете
+        В Мурманске у нас есть несколько адресов помещений, где вы можете
         арендовать кладовку, выберите удобный для вас адрес
       </p>
       <article className='flex flex-col md:flex-row md:justify-between gap-2 '>
-        <Select value={value} onValueChange={setValue}>
+        <Select
+          defaultValue={storages.length == 1 ? storages[0].id + "" : undefined}
+          value={value}
+          onValueChange={setValue}
+        >
           <SelectTrigger className='text-sm sm:text-lg'>
             <SelectValue placeholder='Выберите адрес помещения' />
           </SelectTrigger>

@@ -23,6 +23,7 @@ export default function Menu() {
           <article className='flex justify-between gap-5 items-center mx-auto max-w-[1080px] w-full'>
             <MenuButton active={active} setActive={setActive} />
             <Link
+              onClick={() => setActive(false)}
               href={pagesConfig.rent.href}
               className='bg-red-800 py-1.5 px-6 rounded-full text-sm  sm:text-[16px] lg:text-lg transition-colors hover:bg-red-900 font-bold'
             >

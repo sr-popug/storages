@@ -17,7 +17,7 @@ export default function RoomCard({ room }: { room: Room }) {
         <div className=''>
           <p className='text-sm text-center sm:text-left text-neutral-600 mb-3 flex justify-between items-center'>
             <span>Комната № {room.number}</span>
-            <span className='block p-0.5 px-2 font-bold text-base/7 text-red-700 bg-neutral-950 rounded-lg'>
+            <span className='block p-0.5 px-2 font-bold text-base/7 text-white border border-neutral-700 rounded-lg'>
               {room.size.reduce((calc, a, i, array) => {
                 if (i % 2 == 1) {
                   calc += Number(
