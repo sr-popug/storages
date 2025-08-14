@@ -7,8 +7,9 @@ import { Input } from "@/shared/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/shared/ui/input-otp";
 import { Label } from "@/shared/ui/label";
 import { Room } from "@prisma/client";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export default function RentForm({ room }: { room: Room }) {
   const {
@@ -19,6 +20,7 @@ export default function RentForm({ room }: { room: Room }) {
     watch,
     setValue,
   } = useForm<Inputs>({ mode: "onTouched" });
+  const [disable, setDisable] = useState(false);
 
   const handlePhoneChange = useCallback(
     (value: string) => {
@@ -29,8 +31,17 @@ export default function RentForm({ room }: { room: Room }) {
     },
     [setValue]
   );
-  const submitForm: SubmitHandler<Inputs> = data => {
-    sendMessage({ ...data, room });
+  const submitForm: SubmitHandler<Inputs> = async data => {
+    setDisable(true);
+    sendMessage({ ...data, room })
+      .then(() => {
+        location.replace("/rent/success");
+        setDisable(false);
+      })
+      .catch(() => {
+        toast.error("Ошибка отправки, повторите позже");
+        setDisable(false);
+      });
   };
   const formatPhoneDisplay = (value: string = "") => {
     const digits = value.replace(/\D/g, "");
@@ -278,10 +289,11 @@ export default function RentForm({ room }: { room: Room }) {
 
       <div className='relative mt-3'>
         <button
+          disabled={disable}
           type='submit'
           className=' block text-center py-2 px-15 bg-red-800 transition-colors rounded-full w-full hover:bg-red-900 font-bold'
         >
-          Арендовать кладовку
+          {disable ? "Загрузка..." : "Арендовать кладовку"}
         </button>
       </div>
     </form>

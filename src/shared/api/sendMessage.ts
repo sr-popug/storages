@@ -1,13 +1,12 @@
 import { Inputs } from "@/shared/types/inputs";
 import { Room } from "@prisma/client";
 import axios from "axios";
-import { toast } from "sonner";
 import { PRICE_FOR_SQUARE_METER } from "../lib/constants";
 import numWord from "../scripts/numWord";
 
 type Params = Inputs & { room: Room };
 
-export default function sendMessage(data: Params) {
+export default async function sendMessage(data: Params) {
   const text = `
   📋 Новая заявка на бронирование:
 
@@ -48,12 +47,7 @@ export default function sendMessage(data: Params) {
     
   `;
 
-  axios
-    .post(`${process.env.NEXT_PUBLIC_URL}/api/send-tg`, { message: text })
-    .then(() => {
-      location.replace("/rent/success");
-    })
-    .catch(() => {
-      toast.error("Ошибка отправки, повторите позже");
-    });
+  await axios.post(`${process.env.NEXT_PUBLIC_URL}/api/send-tg`, {
+    message: text,
+  });
 }
