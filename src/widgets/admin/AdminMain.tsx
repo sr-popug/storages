@@ -1,9 +1,11 @@
 "use client";
 import getStorages from "@/shared/api/Storage/getStorages";
 import { Storage } from "@prisma/client";
-import { ArrowRight, LoaderCircle } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import AddStorage from "./ui/AddStorage";
+import DeleteStorage from "./ui/DeleteStorage";
 
 export default function AdminMain() {
   const [storages, setStorages] = useState<Storage[]>();
@@ -13,7 +15,10 @@ export default function AdminMain() {
 
   return (
     <article className=''>
-      <h2 className=' mb-3 text-3xl font-bold'>Помещения</h2>
+      <header className='flex gap-2 justify-between items-center'>
+        <h2 className=' mb-3 text-3xl font-bold'>Помещения</h2>
+        <AddStorage />
+      </header>
       <ul>
         {!storages && (
           <div className='flex items-center flex-col justify-center'>
@@ -35,7 +40,7 @@ export default function AdminMain() {
                   <p className='text-sm text-neutral-600'>Адрес</p>
                   <h4 className='text-lg font-bold'>{el.address}</h4>
                 </div>
-                <ArrowRight />
+                <DeleteStorage id={el.id} />
               </Link>
             </li>
           ))}
