@@ -58,13 +58,13 @@ export default function RentForm({ room }: { room: Room }) {
       onError={() => console.log(errors)}
       className='mt-5 bg-neutral-900 rounded-xl px-5 py-2 pb-5'
     >
-      <h3 className='text-2xl  font-bold gap-2 items-center mt-5 mb-1'>
+      <h3 className='text-2xl  font-bold gap-2 items-center mt-5 mb-1 text-balance'>
         Заполните данные для оплаты
       </h3>
-      <div className='flex gap-x-20 gap-y-5 flex-wrap'>
+      <div className='flex gap-x-20 flex-wrap'>
         {" "}
         <div className='mt-3'>
-          <Label className='text-[16px]' htmlFor=''>
+          <Label className='text-[16px] font-normal' htmlFor=''>
             Оплатить сразу
           </Label>
           <div className='flex items-center gap-2'>
@@ -272,8 +272,8 @@ export default function RentForm({ room }: { room: Room }) {
         </p>
 
         <p className='text-sm mt-1 mb-4 text-neutral-500 flex justify-between gap-1'>
-          Следующая оплата (через {watch("months")} месяц
-          {numWord(Number(watch("months")))} ){" "}
+          Следующая оплата (через {watch("months")} месяц)
+          {numWord(Number(watch("months")))}
           <span className='text-nowrap'>
             {room.size.reduce((calc, a, i, array) => {
               if (i % 2 == 1) {
@@ -282,7 +282,7 @@ export default function RentForm({ room }: { room: Room }) {
               }
               return calc;
             }, 0) * PRICE_FOR_SQUARE_METER}
-            ₽ / мес
+            ₽/мес
           </span>
         </p>
       </div>

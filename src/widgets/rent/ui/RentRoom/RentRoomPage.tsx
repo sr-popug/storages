@@ -36,7 +36,7 @@ export default function RentRoomPage({ id }: { id: string }) {
   }
   return (
     <article>
-      <h1 className='flex  text-2xl lg:text-3xl font-bold gap-2 items-center mt-5 mb-1 text-center sm:text-left'>
+      <h1 className='flex  text-2xl lg:text-3xl font-bold gap-2 items-center mt-5 mb-1 justify-center sm:justify-start w-full'>
         Арендовать комнату № {room.number}
       </h1>
 
@@ -92,9 +92,11 @@ export default function RentRoomPage({ id }: { id: string }) {
             Электричество:
             <div className=' ml-4 text text-neutral-100'>Есть</div>
           </strong>
-          <strong className='flex items-center gap-2 text-lg font-normal mt-2 text-neutral-600'>
-            <MapPinHouse className='text-red-700' width={20} height={20} />
-            Адрес:
+          <strong className='flex  gap-2 text-lg font-normal mt-2 text-neutral-600'>
+            <div className='items-center flex gap-2'>
+              <MapPinHouse className='text-red-700' width={20} height={20} />
+              Адрес:
+            </div>
             <div className=' ml-4 text text-neutral-100'>{address}</div>
           </strong>
           <strong className='flex items-center gap-2 text-lg font-normal mt-2 text-neutral-600'>
@@ -114,8 +116,8 @@ export default function RentRoomPage({ id }: { id: string }) {
             </div>
           </strong>
         </div>
-        <div>
-          <div className='w-65 h-65 rounded-lg flex flex-col justify-center items-center bg-neutral-900 pt-2'>
+        <div className='w-full sm:w-auto'>
+          <div className='w-full sm:w-65 h-65 rounded-lg flex flex-col justify-center items-center bg-neutral-900 pt-2'>
             <RoomPreview size={room.size} />
           </div>
           <div className='text-center text-neutral-600 text-sm'>
