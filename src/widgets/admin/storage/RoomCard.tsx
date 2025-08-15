@@ -22,9 +22,9 @@ export default function RoomCard({ room }: { room: Room }) {
             <Room size={room.size} />
           </div> */}
 
-          <strong className='flex gap-4 text-lg font-medium mt-2 text-neutral-600'>
+          <strong className='flex gap-4 text-lg font-normal mt-2 text-neutral-600'>
             Размеры:{" "}
-            <div className='text text-neutral-100'>
+            <div className=' font-medium text-neutral-100'>
               {room.size.map((room2, i) => {
                 if (i % 2 == 0) {
                   return room2 + "x";
@@ -38,9 +38,9 @@ export default function RoomCard({ room }: { room: Room }) {
               })}
             </div>
           </strong>
-          <strong className='flex gap-4 text-lg font-medium mt-2 text-neutral-600'>
+          <strong className='flex gap-4 text-lg font-normal mt-2 text-neutral-600'>
             Площадь:{" "}
-            <div className=' text text-neutral-100'>
+            <div className=' font-medium text-neutral-100'>
               {room.size.reduce((calc, a, i, array) => {
                 if (i % 2 == 1) {
                   calc += Number(
@@ -54,15 +54,15 @@ export default function RoomCard({ room }: { room: Room }) {
             </div>
           </strong>
           {room.isOccupied && (
-            <strong className='flex gap-2 text-lg font-medium mt-2 text-neutral-600'>
-              Занято до:{" "}
-              <div className=' text text-neutral-100'>
+            <strong className='flex gap-2 text-lg font-normal mt-2 text-neutral-600'>
+              Занято до:
+              <div className='  font-medium text-neutral-100'>
                 {new Date(room.endOccupied!).toLocaleDateString()}
               </div>
             </strong>
           )}
 
-          {/* <strong className='flex gap-2 text-lg font-medium mt-2 text-neutral-600'>
+          {/* <strong className='flex gap-2 text-lg font-normal mt-2 text-neutral-600'>
             Аренда:{' '}
             <div className=' ml-4 text text-neutral-100'>
               {room.size.reduce((calc, a, i, array) => {
