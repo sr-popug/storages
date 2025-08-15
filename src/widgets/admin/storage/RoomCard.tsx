@@ -1,3 +1,4 @@
+import { PRICE_FOR_SQUARE_METER } from "@/shared/lib/constants";
 import { Room } from "@prisma/client";
 import ChangeRoom from "./ChangeRoom";
 import DeleteRoom from "./DeleteRoom";
@@ -62,19 +63,21 @@ export default function RoomCard({ room }: { room: Room }) {
             </strong>
           )}
 
-          {/* <strong className='flex gap-2 text-lg font-normal mt-2 text-neutral-600'>
-            Аренда:{' '}
-            <div className=' ml-4 text text-neutral-100'>
+          <strong className='flex gap-2 text-lg font-normal mt-2 text-neutral-600'>
+            Аренда:{" "}
+            <div className=' ml-4 font-medium text-neutral-100'>
               {room.size.reduce((calc, a, i, array) => {
                 if (i % 2 == 1) {
-                  calc += Number(((array[i] * array[i - 1]) / 10000).toFixed(1))
-                  return calc
+                  calc += Number(
+                    ((array[i] * array[i - 1]) / 10000).toFixed(1)
+                  );
+                  return calc;
                 }
-                return calc
-              }, 0) * PRICE_FOR_SQUARE_METER}{' '}
+                return calc;
+              }, 0) * PRICE_FOR_SQUARE_METER}{" "}
               руб/мес
             </div>
-          </strong> */}
+          </strong>
         </div>
         <div className='flex mt-5 items-center justify-between'>
           <ChangeRoom roomData={room} />

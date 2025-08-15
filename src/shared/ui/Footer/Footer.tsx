@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -12,8 +12,8 @@ export default function Footer() {
       </Link>
 
       <p className='text-[10px] sm:text-sm text-neutral-600'>
-        © 2025. Все права защищены{' '}
+        © 2025. Все права защищены{" "}
       </p>
     </footer>
-  )
+  );
 }

@@ -92,11 +92,9 @@ export default function RentRoomPage({ id }: { id: string }) {
             Электричество:
             <div className=' ml-4 text text-neutral-100'>Есть</div>
           </strong>
-          <strong className='flex  gap-2 text-lg font-normal mt-2 text-neutral-600'>
-            <div className='items-center flex gap-2'>
-              <MapPinHouse className='text-red-700' width={20} height={20} />
-              Адрес:
-            </div>
+          <strong className='flex gap-2 text-lg font-normal mt-2 text-neutral-600'>
+            <MapPinHouse className='text-red-700 mt-1' width={20} height={20} />
+            Адрес:
             <div className=' ml-4 text text-neutral-100'>{address}</div>
           </strong>
           <strong className='flex items-center gap-2 text-lg font-normal mt-2 text-neutral-600'>
